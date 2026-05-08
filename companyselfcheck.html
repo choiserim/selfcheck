@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>경영 리스크 종합 진단표 (2장 고정본)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        body { 
+            font-family: 'Noto Sans KR', sans-serif; 
+            background-color: #f1f5f9; 
+            color: #1e293b;
+            word-break: keep-all;
+            line-height: 1.2;
+        }
+
+        /* 컨테이너 및 페이지 설정 */
+        #pdf-root {
+            width: 794px;
+            margin: 0 auto;
+            background-color: white;
+            display: block;
+        }
+
+        .pdf-page {
+            width: 794px;
+            height: 1120px; /* A4 기준보다 2px 작게 설정하여 안전권 확보 */
+            padding: 70px 75px; 
+            background: white;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden; /* 내부 내용이 삐져나가 페이지를 넘기지 못하게 방어 */
+            page-break-after: always;
+            page-break-inside: avoid;
+        }
+
+        .check-box {
+            width: 18px;
+            height: 18px;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 4px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 14px;
+            flex-shrink: 0;
+            background-color: #fff;
+        }
+        
+        .check-box.active {
+            background-color: #2563eb !important;
+            border-color: #2563eb !important;
+        }
+        .check-box.active::after {
+            content: '✓';
+            color: white !important;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .question-block {
+            border-bottom: 1px solid #f1f5f9;
+            padding-bottom: 24px;
+            margin-bottom: 24px;
+        }
+
+        @media print {
+            .no-print { display: none !important; }
+            #pdf-root { width: 794px; margin: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="no-print p-4 text-center bg-slate-900 text-white sticky top-0 z-50 shadow-2xl flex justify-center items-center gap-8">
+        <div class="text-left border-l-4 border-blue-500 pl-4">
+            <p class="text-[10px] font-bold text-blue-400 tracking-widest uppercase">Fixed 2 Pages Version</p>
+            <p class="text-lg font-black italic">Management Risk Report</p>
+        </div>
+        <button id="download-btn" onclick="savePDF()" class="bg-blue-600 hover:bg-blue-700 text-white px-10 py-3 rounded-xl font-bold flex items-center gap-3 transition-all shadow-[0_0_20px_rgba(37,99,235,0.4)] active:scale-95">
+            <i data-lucide="file-check" class="w-5 h-5"></i>
+            <span>정확히 2장으로 저장</span>
+        </button>
+    </div>
+
+    <div id="pdf-root">
+        <!-- PAGE 1 -->
+        <div class="pdf-page">
+            <div class="flex justify-between items-end border-b-[4px] border-slate-900 pb-6 mb-8">
+                <div>
+                    <h1 class="text-3xl font-black tracking-tighter text-slate-900 mb-1">경영 리스크 종합 진단표 <span class="text-blue-600">(I)</span></h1>
+                    <p class="text-[11px] font-bold text-slate-400 uppercase tracking-[0.25em]">Part 01. Operational & Legal Compliance</p>
+                </div>
+                <div class="text-right">
+                    <table class="text-[11px] border-collapse">
+                        <tr>
+                            <td class="border border-slate-200 px-3 py-1.5 bg-slate-50 font-bold text-slate-600">진단 일자</td>
+                            <td class="border border-slate-200 px-3 py-1.5 w-32 text-left text-slate-300 italic text-[10px]">202 . &nbsp; . &nbsp; .</td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-200 px-3 py-1.5 bg-slate-50 font-bold text-slate-600">대표자 성명</td>
+                            <td class="border border-slate-200 px-3 py-1.5 text-right text-slate-300 text-[10px]">(인)</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="bg-slate-50 p-5 rounded-xl mb-8 flex justify-between items-center border border-slate-200">
+                <div class="flex gap-12">
+                    <div class="flex items-center gap-3 text-[14px]"><span class="font-bold text-slate-700">사업장명</span> <span class="border-b border-slate-300 w-40 h-6"></span></div>
+                    <div class="flex items-center gap-3 text-[14px]"><span class="font-bold text-slate-700">연락처</span> <span class="border-b border-slate-300 w-36 h-6"></span></div>
+                </div>
+                <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Page 01</div>
+            </div>
+
+            <div class="flex-grow">
+                <div class="question-block">
+                    <div class="text-blue-600 font-bold text-[10px] mb-2 uppercase tracking-widest">01. Tax & Accounting</div>
+                    <h3 class="text-[16.5px] font-bold mb-4 flex items-start gap-3 text-slate-800 leading-snug">
+                        <span class="text-blue-600 font-black">Q1.</span>
+                        세무/회계 리스크: 법인의 가지급금(미결산 항목) 및 세무조사 리스크 관리 상태는?
+                    </h3>
+                    <div class="space-y-3 pl-9">
+                        <div class="flex items-center cursor-pointer group" onclick="toggleCheck(this)"><div class="check-box"></div><span class="text-[14px]">관리되지 않는 가지급금이나 가수금이 상당액 존재한다.</span></div>
+                        <div class="flex items-center cursor-pointer group" onclick="toggleCheck(this)"><div class="check-box"></div><span class="text-[14px]">법인 신용카드나 경비 사용 증빙이 불명확한 경우가 잦다.</span></div>
+                        <div class="flex items-center cursor-pointer group" onclick="toggleCheck(this)"><div class="check-box"></div><span class="text-[14px]">기본적인 기장은 수행하나, 세액공제/감면 혜택 검토가 부족하다.</span></div>
+                        <div class="flex items-center cursor-pointer group" onclick="toggleCheck(this)"><div class="check-box"></div><span class="text-[14px]">정기 세무 진단을 통해 가산세 및 조사 리스크를 사전 통제 중이다.</span></div>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <div class="text-blue-600 font-bold text-[10px] mb-2 uppercase tracking-widest">02. Human Resources</div>
+                    <h3 class="text-[16.5px] font-bold mb-4 flex items-start gap-3 text-slate-800 leading-snug">
+                        <span class="text-blue-600 font-black">Q2.</span>
+                        노무/인사 리스크: 최신 근로기준법에 맞춘 취업규칙 및 인사 시스템을 갖추었는가?
+                    </h3>
+                    <div class="space-y-3 pl-9">
+                        <div class="flex items-center cursor-pointer group" onclick="toggleCheck(this)"><div class="check-box"></div><span class="text-[14px]">근로계약서 미작성 혹은 과거 양식을 사용 중이며 취업규칙이 없다.</span></div>
+                        <div class="flex items-center cursor-pointer group" onclick="toggleCheck(this)"><div class="check-box"></div><span class="text-[14px]">연차유급휴가, 법정 의무교육 등 준수 사항이 이행되지 않고 있다.</span></div>
+                        <div class="flex items-center cursor-pointer group" onclick="toggleCheck(this)"><div class="check-box"></div><span class="text-[14px]">서류는 갖춰져 있으나 퇴직금 산정이나 포괄임금제 분쟁 소지가 있다.</span></div>
+                        <div class="flex items-center cursor-pointer group" onclick="toggleCheck(this)"><div class="check-box"></div><span class="text-[14px]">매년 업데이트되는 법률에 맞춰 전문적인 인사 시스템을 유지한다.</span></div>
+                    </div>
+                </div>
+
+                <div class="question-block border-none">
+                    <div class="text-blue-600 font-bold text-[10px] mb-2 uppercase tracking-widest">03. Industrial Safety</div>
+                    <h3 class="text-[16.5px] font-bold mb-4 flex items-start gap-3 text-slate-800 leading-snug">
+                        <span class="text-blue-600 font-black">Q3.</span>
+                        산업안전/사고 리스크: 중대재해처벌법에 따른 관리체계 및 사고 시 손실 대책은?
+                    </h3>
+                    <div class="space-y-3 pl-9">
+                        <div class="flex items-center cursor-pointer group" onclick="toggleCheck(this)"><div class="check-box"></div><span class="text-[14px]">사고 발생 시 대책이 없으며, 법적 책임 범위에 대해서도 잘 모른다.</span></div>
+                        <div class="flex items-center cursor-pointer group" onclick="toggleCheck(this)"><div class="check-box"></div><span class="text-[14px]">화재 보험은 있으나, 대표자 형사 책임을 위한 방어 비용 대책은 없다.</span></div>
+                        <div class="flex items-center cursor-pointer group" onclick="toggleCheck(this)"><div class="check-box"></div><span class="text-[14px]">보험은 가입했으나 현장의 유해/위험 요인 점검(위험성 평가)은 미흡하다.</span></div>
+                        <div class="flex items-center cursor-pointer group" onclick="toggleCheck(this)"><div class="check-box"></div><span class="text-[14px]">위험성 평가 체계를 완비하고 법적 대응 플랜이 보험과 연계되어 있다.</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-auto pt-5 border-t border-slate-100 flex justify-between items-center text-[10px] font-medium text-slate-400">
+                <span>본 진단표는 경영 관리 상태 점검을 위한 참고용 자료입니다.</span>
+                <span class="italic text-slate-300 uppercase tracking-tighter">Management Risk Scan v1.6</span>
+            </div>
+        </div>
+
+        <!-- PAGE 2 -->
+        <div class="pdf-page">
+            <div class="flex justify-between items-end border-b-[4px] border-slate-900 pb-6 mb-8">
+                <div>
+                    <h1 class="text-3xl font-black tracking-tighter text-slate-900 mb-1">경영 리스크 종합 진단표 <span class="text-blue-600">(II)</span></h1>
+                    <p class="text-[11px] font-bold text-slate-400 uppercase tracking-[0.25em]">Part 02. Asset Security & Exit Strategy</p>
+                </div>
+                <div class="text-right pb-1">
+                    <span class="bg-blue-600 text-white px-3 py-1 rounded text-[10px] font-black shadow-sm italic">FINAL CHECK</span>
+                </div>
+            </div>
+
+            <div class="flex-grow">
+                <div class="question-block">
+                    <div class="text-blue-600 font-bold text-[10px] mb-2 uppercase tracking-widest">04. Asset Security</div>
+                    <h3 class="text-[16.5px] font-bold mb-4 flex items-start gap-3 text-slate-800 leading-snug">
+                        <span class="text-blue-600 font-black">Q4.</span>
+                        자산 보안 리스크: 사업 소득의 개인 자산화 과정의 적법성 및 상속세 확보 계획은?
+                    </h3>
+                    <div class="space-y-3 pl-9">
+                        <div class="flex items-center cursor-pointer group" onclick="toggleCheck(this)"><div class="check-box"></div><span class="text-[14px]">개인 자산과 법인 자금 구분이 모호하며 급여 외 자금 인출이 잦다.</span></div>
+                        <div class="flex items-center cursor-pointer group" onclick="toggleCheck(this)"><div class="check-box"></div><span class="text-[14px]">자산 증식 과정에 대한 자금출처 소명이 어렵거나 사후관리 대책이 없다.</span></div>
+                        <div class="flex items-center cursor-pointer group" onclick="toggleCheck(this)"><div class="check-box"></div><span class="text-[14px]">상속세 재원 마련 대책이 없어 자산의 강제 급매나 큰 손실이 우려된다.</span></div>
+                        <div class="flex items-center cursor-pointer group" onclick="toggleCheck(this)"><div class="check-box"></div><span class="text-[14px]">합법적인 자산 증식 로드맵과 상속세 재원 포트폴리오를 구축하고 있다.</span></div>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <div class="text-blue-600 font-bold text-[10px] mb-2 uppercase tracking-widest">05. Legal Risk</div>
+                    <h3 class="text-[16.5px] font-bold mb-4 flex items-start gap-3 text-slate-800 leading-snug">
+                        <span class="text-blue-600 font-black">Q5.</span>
+                        법무 리스크: 임대차 분쟁, 미수금 등 분쟁 발생 시 대응 프로세스는?
+                    </h3>
+                    <div class="space-y-3 pl-9">
+                        <div class="flex items-center cursor-pointer group" onclick="toggleCheck(this)"><div class="check-box"></div><span class="text-[14px]">구두 합의가 많으며 계약서 검토 없이 도장을 찍는 경우가 잦다.</span></div>
+                        <div class="flex items-center cursor-pointer group" onclick="toggleCheck(this)"><div class="check-box"></div><span class="text-[14px]">거래처 미수금이 쌓여가고 있으나 법적으로 회수할 절차를 모른다.</span></div>
+                        <div class="flex items-center cursor-pointer group" onclick="toggleCheck(this)"><div class="check-box"></div><span class="text-[14px]">사건이 터진 후 임기응변식으로 대응하여 비용 손실이 크다.</span></div>
+                        <div class="flex items-center cursor-pointer group" onclick="toggleCheck(this)"><div class="check-box"></div><span class="text-[14px]">계약 관리 가이드가 있고, 상시 자문을 구할 법률 채널이 있다.</span></div>
+                    </div>
+                </div>
+
+                <div class="question-block border-none">
+                    <div class="text-blue-600 font-bold text-[10px] mb-2 uppercase tracking-widest">06. Exit Strategy</div>
+                    <h3 class="text-[16.5px] font-bold mb-4 flex items-start gap-3 text-slate-800 leading-snug">
+                        <span class="text-blue-600 font-black">Q6.</span>
+                        출구 전략: 법인 전환, 가업 승계 또는 안전한 폐업 계획이 있습니까?
+                    </h3>
+                    <div class="space-y-3 pl-9">
+                        <div class="flex items-center cursor-pointer group" onclick="toggleCheck(this)"><div class="check-box"></div><span class="text-[14px]">먼 미래의 일로 생각하여 별도의 계획을 세우지 않고 있다.</span></div>
+                        <div class="flex items-center cursor-pointer group" onclick="toggleCheck(this)"><div class="check-box"></div><span class="text-[14px]">전환/양도 시 발생하는 세금 폭탄에 대해 구체적인 계산이 안 되어 있다.</span></div>
+                        <div class="flex items-center cursor-pointer group" onclick="toggleCheck(this)"><div class="check-box"></div><span class="text-[14px]">후계자 선정이나 사업 정리 시점의 기업가치 평가를 해본 적이 없다.</span></div>
+                        <div class="flex items-center cursor-pointer group" onclick="toggleCheck(this)"><div class="check-box"></div><span class="text-[14px]">장기적인 엑시트 로드맵을 수립하여 전문가와 단계별로 실행 중이다.</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-auto pt-5 border-t border-slate-100 flex justify-between items-center text-[10px] font-medium text-slate-400">
+                <div class="flex items-center gap-2">
+                    <span class="text-blue-600 font-black">CONFIDENTIAL</span>
+                    <span>본 보고서는 외부 유출을 엄격히 금합니다.</span>
+                </div>
+                <span class="text-slate-900 font-bold uppercase tracking-widest">Page 02</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        function toggleCheck(el) {
+            const box = el.querySelector('.check-box');
+            box.classList.toggle('active');
+        }
+
+        async function savePDF() {
+            const btn = document.getElementById('download-btn');
+            const element = document.getElementById('pdf-root');
+            
+            btn.innerHTML = `<span>PDF 생성 중...</span>`;
+            btn.classList.add('opacity-50');
+
+            const opt = {
+                margin: 0,
+                filename: '경영_리스크_진단표_2장_고정.pdf',
+                image: { type: 'jpeg', quality: 1.0 },
+                html2canvas: { 
+                    scale: 3, 
+                    useCORS: true, 
+                    windowWidth: 794,
+                    scrollX: 0,
+                    scrollY: 0,
+                    x: 0,
+                    y: 0,
+                    letterRendering: true,
+                    logging: false
+                },
+                jsPDF: { 
+                    unit: 'px', 
+                    format: [794, 1120], 
+                    orientation: 'portrait',
+                    hotfixes: ['px_scaling'] 
+                },
+                pagebreak: { mode: 'css', before: '.pdf-page', after: '.pdf-page', avoid: ['h3', 'div', 'p'] }
+            };
+            
+            try {
+                await html2pdf().set(opt).from(element).save();
+            } catch (error) {
+                console.error("PDF 생성 오류:", error);
+            } finally {
+                btn.innerHTML = `<i data-lucide="file-check" class="w-5 h-5"></i> <span>정확히 2장으로 저장</span>`;
+                btn.classList.remove('opacity-50');
+                lucide.createIcons();
+            }
+        }
+    </script>
+</body>
+</html>
