@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>매장 운영 리스크 종합 진단표</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        body { 
+            font-family: 'Noto Sans KR', sans-serif; 
+            background-color: #f1f5f9; 
+            color: #1e293b;
+            word-break: keep-all;
+            line-height: 1.2;
+        }
+
+        #pdf-root {
+            width: 794px;
+            margin: 0 auto;
+            background-color: white;
+            display: block;
+        }
+
+        .pdf-page {
+            width: 794px;
+            height: 1120px; 
+            padding: 70px 75px; 
+            background: white;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden; 
+            page-break-after: always;
+            page-break-inside: avoid;
+        }
+
+        .check-box {
+            width: 18px;
+            height: 18px;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 4px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 14px;
+            flex-shrink: 0;
+            background-color: #fff;
+        }
+        
+        .check-box.active {
+            background-color: #ef4444 !important;
+            border-color: #ef4444 !important;
+        }
+        .check-box.active::after {
+            content: '✓';
+            color: white !important;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .question-block {
+            border-bottom: 1px solid #f1f5f9;
+            padding-bottom: 24px;
+            margin-bottom: 24px;
+        }
+
+        @media print {
+            .no-print { display: none !important; }
+            #pdf-root { width: 794px; margin: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="no-print p-4 text-center bg-slate-900 text-white sticky top-0 z-50 shadow-2xl flex justify-center items-center gap-8">
+        <div class="text-left border-l-4 border-red-500 pl-4">
+            <p class="text-[10px] font-bold text-red-400 tracking-widest uppercase">F&B Business Version</p>
+            <p class="text-lg font-black italic">Food Service Risk Report</p>
+        </div>
+        <button id="download-btn" onclick="savePDF()" class="bg-red-600 hover:bg-red-700 text-white px-10 py-3 rounded-xl font-bold flex items-center gap-3 transition-all shadow-[0_0_20px_rgba(239,68,68,0.4)] active:scale-95">
+            <i data-lucide="file-check" class="w-5 h-5"></i>
+            <span>음식점용 진단표 PDF 저장</span>
+        </button>
+    </div>
+
+    <div id="pdf-root">
+        <!-- PAGE 1 -->
+        <div class="pdf-page">
+            <div class="flex justify-between items-end border-b-[4px] border-slate-900 pb-6 mb-8">
+                <div>
+                    <h1 class="text-3xl font-black tracking-tighter text-slate-900 mb-1">매장 운영 리스크 종합 진단표<span class="text-red-600">(I)</span></h1>
+                    <p class="text-[11px] font-bold text-slate-400 uppercase tracking-[0.25em]">Part 01. Sales, Tax & Labor Management</p>
+                </div>
+                <div class="text-right">
+                    <table class="text-[11px] border-collapse">
+                        <tr>
+                            <td class="border border-slate-200 px-3 py-1.5 bg-slate-50 font-bold text-slate-600">진단 일자</td>
+                            <td class="border border-slate-200 px-3 py-1.5 w-32 text-left text-slate-300 italic text-[10px]">202 . &nbsp; . &nbsp; .</td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-200 px-3 py-1.5 bg-slate-50 font-bold text-slate-600">사업자 성명</td>
+                            <td class="border border-slate-200 px-3 py-1.5 text-right text-slate-300 text-[10px]">(인)</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="bg-slate-50 p-5 rounded-xl mb-8 flex justify-between items-center border border-slate-200">
+                <div class="flex gap-12">
+                    <div class="flex items-center gap-3 text-[14px]"><span class="font-bold text-slate-700">상호명</span> <span class="border-b border-slate-300 w-40 h-6"></span></div>
+                    <div class="flex items-center gap-3 text-[14px]"><span class="font-bold text-slate-700">연락처</span> <span class="border-b border-slate-300 w-36 h-6"></span></div>
+                </div>
+                <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Page 01</div>
+            </div>
+
+            <div class="flex-grow">
+                <div class="question-block">
+                    <div class="text-red-600 font-bold text-[10px] mb-2 uppercase tracking-widest">01. Tax & Sales Risk</div>
+                    <h3 class="text-[16.5px] font-bold mb-4 flex items-start gap-3 text-slate-800 leading-snug">
+                        <span class="text-red-600 font-black">Q1.</span>
+                        세무/매출 리스크: 배달 플랫폼 매출 누락 및 의제매입세액공제 등 세무 관리는?
+                    </h3>
+                    <div class="space-y-3 pl-9">
+                        <div class="flex items-center cursor-pointer group" onclick="toggleCheck(this)"><div class="check-box"></div><span class="text-[14px]">배달 플랫폼(배민, 쿠팡 등) 매출 신고가 실제 입금액과 차이 난다.</span></div>
+                        <div class="flex items-center cursor-pointer group" onclick="toggleCheck(this)"><div class="check-box"></div><span class="text-[14px]">식자재 계산서 등 의제매입세액공제를 위한 증빙 서류 관리가 소홀하다.</span></div>
+                        <div class="flex items-center cursor-pointer group" onclick="toggleCheck(this)"><div class="check-box"></div><span class="text-[14px]">인건비(주방, 홀 알바) 신고를 하지 않아 세금 부담이 크다.</span></div>
+                        <div class="flex items-center cursor-pointer group" onclick="toggleCheck(this)"><div class="check-box"></div><span class="text-[14px]">전문 세무 대리를 통해 플랫폼 매출 교차 검증과 세액공제를 완벽히 적용 중이다.</span></div>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <div class="text-red-600 font-bold text-[10px] mb-2 uppercase tracking-widest">02. Labor & Alba Risk</div>
+                    <h3 class="text-[16.5px] font-bold mb-4 flex items-start gap-3 text-slate-800 leading-snug">
+                        <span class="text-red-600 font-black">Q2.</span>
+                        노무 리스크: 단기 아르바이트생 근로계약서, 주휴수당 및 퇴직금 분쟁 대비는?
+                    </h3>
+                    <div class="space-y-3 pl-9">
+                        <div class="flex items-center cursor-pointer group" onclick="toggleCheck(this)"><div class="check-box"></div><span class="text-[14px]">근로계약서를 작성하지 않거나, 작성해도 교부하지 않는 경우가 많다.</span></div>
+                        <div class="flex items-center cursor-pointer group" onclick="toggleCheck(this)"><div class="check-box"></div><span class="text-[14px]">주휴수당 지급 기준을 정확히 몰라 계산이 누락된 적이 있다.</span></div>
+                        <div class="flex items-center cursor-pointer group" onclick="toggleCheck(this)"><div class="check-box"></div><span class="text-[14px]">상시 근로자 수에 따른 연차/휴업수당 등 적용 범위를 잘 모르고 있다.</span></div>
+                        <div class="flex items-center cursor-pointer group" onclick="toggleCheck(this)"><div class="check-box"></div><span class="text-[14px]">전자근로계약서를 사용하고 4대보험 및 급여 명세서를 법에 맞게 지급한다.</span></div>
+                    </div>
+                </div>
+
+                <div class="question-block border-none">
+                    <div class="text-red-600 font-bold text-[10px] mb-2 uppercase tracking-widest">03. Hygiene & Safety Risk</div>
+                    <h3 class="text-[16.5px] font-bold mb-4 flex items-start gap-3 text-slate-800 leading-snug">
+                        <span class="text-red-600 font-black">Q3.</span>
+                        위생/사고 리스크: 식중독 민원, 현장 미끄러짐 사고 및 원산지 표시 위반 대비는?
+                    </h3>
+                    <div class="space-y-3 pl-9">
+                        <div class="flex items-center cursor-pointer group" onclick="toggleCheck(this)"><div class="check-box"></div><span class="text-[14px]">식중독 의심 신고 발생 시 대응 매뉴얼이 없으며 음식물 배상 보험이 없다.</span></div>
+                        <div class="flex items-center cursor-pointer group" onclick="toggleCheck(this)"><div class="check-box"></div><span class="text-[14px]">홀 미끄러짐 사고나 배달 오토바이 사고 시 민사 배상 대책이 부족하다.</span></div>
+                        <div class="flex items-center cursor-pointer group" onclick="toggleCheck(this)"><div class="check-box"></div><span class="text-[14px]">식재료 원산지 표시가 최신 기준과 다르거나 누락된 품목이 있다.</span></div>
+                        <div class="flex items-center cursor-pointer group" onclick="toggleCheck(this)"><div class="check-box"></div><span class="text-[14px]">정기 위생 점검을 실시하며, 포괄적 영업배상보험에 가입되어 있다.</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-auto pt-5 border-t border-slate-100 flex justify-between items-center text-[10px] font-medium text-slate-400">
+                <span>본 진단표는 음식점 자영업 경영자를 위한 자가 진단 도구입니다.</span>
+                <span class="italic text-slate-300 uppercase tracking-tighter">Food Service Risk v1.7</span>
+            </div>
+        </div>
+
+        <!-- PAGE 2 -->
+        <div class="pdf-page">
+            <div class="flex justify-between items-end border-b-[4px] border-slate-900 pb-6 mb-8">
+                <div>
+                    <h1 class="text-3xl font-black tracking-tighter text-slate-900 mb-1">매장 운영 리스크 종합 진단표<span class="text-red-600">(II)</span></h1>
+                    <p class="text-[11px] font-bold text-slate-400 uppercase tracking-[0.25em]">Part 02. Facility, Contract & Survival Strategy</p>
+                </div>
+                <div class="text-right pb-1">
+                    <span class="bg-red-600 text-white px-3 py-1 rounded text-[10px] font-black shadow-sm italic">CHECK LIST</span>
+                </div>
+            </div>
+
+            <div class="flex-grow">
+                <div class="question-block">
+                    <div class="text-red-600 font-bold text-[10px] mb-2 uppercase tracking-widest">04. Facility & Lease Risk</div>
+                    <h3 class="text-[16.5px] font-bold mb-4 flex items-start gap-3 text-slate-800 leading-snug">
+                        <span class="text-red-600 font-black">Q4.</span>
+                        상가 임대차 리스크: 권리금 회수 방해, 임대료 인상 및 원상복구 분쟁 대비는?
+                    </h3>
+                    <div class="space-y-3 pl-9">
+                        <div class="flex items-center cursor-pointer group" onclick="toggleCheck(this)"><div class="check-box"></div><span class="text-[14px]">계약 갱신 요구권 행사 시점이나 임대료 상한제 규정을 잘 모른다.</span></div>
+                        <div class="flex items-center cursor-pointer group" onclick="toggleCheck(this)"><div class="check-box"></div><span class="text-[14px]">시설 투자비(인테리어)에 대한 원상복구 범위가 계약서상에 불분명하다.</span></div>
+                        <div class="flex items-center cursor-pointer group" onclick="toggleCheck(this)"><div class="check-box"></div><span class="text-[14px]">건물주와의 갈등 시 권리금을 보호받을 수 있는 법적 절차를 모른다.</span></div>
+                        <div class="flex items-center cursor-pointer group" onclick="toggleCheck(this)"><div class="check-box"></div><span class="text-[14px]">상가건물 임대차보호법을 숙지하고 있으며, 계약 연장 협상 전략이 있다.</span></div>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <div class="text-red-600 font-bold text-[10px] mb-2 uppercase tracking-widest">05. Brand & Marketing Risk</div>
+                    <h3 class="text-[16.5px] font-bold mb-4 flex items-start gap-3 text-slate-800 leading-snug">
+                        <span class="text-red-600 font-black">Q5.</span>
+                        브랜드/마케팅 리스크: 악성 리뷰(블랙컨슈머) 및 상표권 도용 대응 상태는?
+                    </h3>
+                    <div class="space-y-3 pl-9">
+                        <div class="flex items-center cursor-pointer group" onclick="toggleCheck(this)"><div class="check-box"></div><span class="text-[14px]">악성 리뷰 발생 시 감정적으로 대응하여 온라인 평점이 급락한 적이 있다.</span></div>
+                        <div class="flex items-center cursor-pointer group" onclick="toggleCheck(this)"><div class="check-box"></div><span class="text-[14px]">사용 중인 상호(브랜드)의 상표권 등록이 안 되어 있어 도용 위험이 있다.</span></div>
+                        <div class="flex items-center cursor-pointer group" onclick="toggleCheck(this)"><div class="check-box"></div><span class="text-[14px]">광고 대행사와의 계약 시 위약금 조항 등 불공정 계약 여부를 모른다.</span></div>
+                        <div class="flex items-center cursor-pointer group" onclick="toggleCheck(this)"><div class="check-box"></div><span class="text-[14px]">리뷰 관리 가이드라인이 있으며 핵심 브랜드 자산에 대한 권리를 확보했다.</span></div>
+                    </div>
+                </div>
+
+                <div class="question-block border-none">
+                    <div class="text-red-600 font-bold text-[10px] mb-2 uppercase tracking-widest">06. Sustainability Risk</div>
+                    <h3 class="text-[16.5px] font-bold mb-4 flex items-start gap-3 text-slate-800 leading-snug">
+                        <span class="text-red-600 font-black">Q6.</span>
+                        생존 전략 리스크: 식재료 단가 폭등 대책 및 비상 시 자금 조달 계획은?
+                    </h3>
+                    <div class="space-y-3 pl-9">
+                        <div class="flex items-center cursor-pointer group" onclick="toggleCheck(this)"><div class="check-box"></div><span class="text-[14px]">원가율 변동에 따른 적정 메뉴 가격 산정 기준이 모호하다.</span></div>
+                        <div class="flex items-center cursor-pointer group" onclick="toggleCheck(this)"><div class="check-box"></div><span class="text-[14px]">급격한 불황 시 임대료와 인건비를 감당할 예비 자금 대책이 없다.</span></div>
+                        <div class="flex items-center cursor-pointer group" onclick="toggleCheck(this)"><div class="check-box"></div><span class="text-[14px]">정부 지원금이나 저금리 정책 자금 활용 방법을 잘 모른다.</span></div>
+                        <div class="flex items-center cursor-pointer group" onclick="toggleCheck(this)"><div class="check-box"></div><span class="text-[14px]">주기적인 손익 분석을 실시하며 비상 상황 시 긴급 자원 조달이 가능하다.</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-auto pt-5 border-t border-slate-100 flex justify-between items-center text-[10px] font-medium text-slate-400">
+                <div class="flex items-center gap-2">
+                    <span class="text-red-600 font-black">STRICTLY CONFIDENTIAL</span>
+                    <span>성공적인 식당 경영을 위한 파트너가 되어 드립니다.</span>
+                </div>
+                <span class="text-slate-900 font-bold uppercase tracking-widest">Page 02</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        function toggleCheck(el) {
+            const box = el.querySelector('.check-box');
+            box.classList.toggle('active');
+        }
+
+        async function savePDF() {
+            const btn = document.getElementById('download-btn');
+            const element = document.getElementById('pdf-root');
+            
+            btn.innerHTML = `<span>PDF 변환 중...</span>`;
+            btn.classList.add('opacity-50');
+
+            const opt = {
+                margin: 0,
+                filename: '음식점_경영_리스크_진단표.pdf',
+                image: { type: 'jpeg', quality: 1.0 },
+                html2canvas: { 
+                    scale: 3, 
+                    useCORS: true, 
+                    windowWidth: 794,
+                    scrollX: 0,
+                    scrollY: 0,
+                    x: 0,
+                    y: 0,
+                    letterRendering: true,
+                    logging: false
+                },
+                jsPDF: { 
+                    unit: 'px', 
+                    format: [794, 1120], 
+                    orientation: 'portrait',
+                    hotfixes: ['px_scaling'] 
+                },
+                pagebreak: { mode: 'css', before: '.pdf-page', after: '.pdf-page', avoid: ['h3', 'div', 'p'] }
+            };
+            
+            try {
+                await html2pdf().set(opt).from(element).save();
+            } catch (error) {
+                console.error("PDF 생성 오류:", error);
+            } finally {
+                btn.innerHTML = `<i data-lucide="file-check" class="w-5 h-5"></i> <span>음식점용 진단표 PDF 저장</span>`;
+                btn.classList.remove('opacity-50');
+                lucide.createIcons();
+            }
+        }
+    </script>
+</body>
+</html>
